@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import AddItem from "./components/AddItem";
+import { Route, Routes } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import EditItem from "./components/EditItem";
+import SwapItems from "./components/SwapItems";
+import { useState } from "react";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [colAData, setColAData] = useState([]);
+    const getItemDataHandler = (newItems) => {
+        setColAData(newItems);
+    };
+
+    return (
+        <div>
+            <Navbar />
+            <Routes>
+                <Route
+                    path='/add'
+                    element={<AddItem onAddItem={getItemDataHandler} />}
+                />
+                <Route path='/edit' element={<EditItem />} />
+                <Route
+                    path='/swap'
+                    element={<SwapItems colAData={colAData} />}
+                />
+            </Routes>
+        </div>
+    );
 }
 
 export default App;
